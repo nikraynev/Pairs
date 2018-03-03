@@ -85,7 +85,6 @@ div {
 	flex: 1;
 }
 .day-name {
-	/*background: #3F51B5;*/
 	background: blue;
 
 	-webkit-opacity: .5;
@@ -97,11 +96,12 @@ div {
 	color: #fff;
 	padding: 1em;
 	text-align: center;
-	font-size: 1.1em;
+	font-size: 1.2em;
 }
 .day-pairs {
 	padding: 1em;
 	counter-reset: numbers;
+	overflow-y: scroll;
 }
 .pair {
 	border-bottom: thin solid rgba(0, 0, 0, .1);
@@ -125,7 +125,6 @@ div {
 
 	-ms-text-overflow: ellipsis;
 	text-overflow: ellipsis;
-
 }
 .pair:last-child {
 	border-bottom: 0;
@@ -157,4 +156,58 @@ div {
 .pair-blue::before {
 	background: blue;
 	color: white;
+}
+.day-pairs-row {
+	-webkit-flex-direction: row;
+	-moz-flex-direction: row;
+	-ms-flex-direction: row;
+	-o-flex-direction: row;
+	flex-direction: row;
+
+	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	-o-flex-wrap: wrap;
+	flex-wrap: wrap;
+
+	padding: 1em;
+	counter-reset: time-numbers;
+}
+.pair-time {
+	width: 50%;
+	text-align: center;
+	padding-bottom: .5em;
+	padding-left: 1em;
+	padding-right: 1em;
+}
+.pair-time::before {
+	counter-increment: time-numbers;
+	content: counter(time-numbers);
+	padding-bottom: .5em;
+	padding-top: .5em;
+	border-bottom: thin solid black;
+	margin-bottom: .5em;
+}
+.pair-time-current {
+	background: blue;
+	
+	-webkit-opacity: .5;
+	-moz-opacity: .5;
+	-ms-opacity: .5;
+	-o-opacity: .5;
+	opacity: .5;
+	
+	color: #fff;
+
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	-ms-border-radius: 2px;
+	-o-border-radius: 2px;
+	border-radius: 2px;
+}
+.pair-time-current::before {
+	border-bottom: thin solid white;
+}
+.red {
+	background: red;
 }

@@ -1,7 +1,14 @@
 var Pairs = (function() {
 	var wrap = document.querySelector('.wrap');
+	var pairsTime = document.querySelector('#pairsTime');
 	var currentDay = new Date().getDay() - 1;
-	var touchstart = {
+
+
+	// HACK
+	if (currentDay === -1) currentDay = 6;
+
+
+ 	var touchstart = {
 		x: 0,
 		y: 0
 	};
@@ -10,6 +17,18 @@ var Pairs = (function() {
 		y: 0
 	};
 	var isDayChange = false;
+
+	var times = [
+		["8:00", "9:30"],
+		["9:40", "11:10"],
+		["11:30", "13:00"],
+		["13:10", "14:40"],
+		["14:50", "16:20"],
+		["16:30", "18:00"],
+		["18:10", "19:40"],
+		["19:50", "21:20"]
+	];
+
 	return {
 		init: function() {
 			console.log('Init');
@@ -54,7 +73,28 @@ var Pairs = (function() {
 		},
 		touchEnd: function(e) {
 			isDayChange = false;
+		},
+		setPair: function(pairID) {
+			var times = pairsTime.children;
+			for (var item in times) {
+				times[item].className = 'pair-time';
+			}
+			times[pairID].className = 'pair-time pair-time-current';
+		},
+		setCurrentPair: function() {
+			console.log(cTimeSum);
+			for (var time in times) {
+				var f = times[time][0].split(':');
+				var s = times[time][1].split(':');
+				var fSum = f[0] * 60 + parseInt(f[1]);
+				var sSum = s[0] * 60 + parseInt(s[1]);
+				var cTimeSum = new Date().getHours() * 60 + new Date().getMinutes();
+				if (cTimeSum >= fSum && cTimeSum <= sSum) {
+					Pairs.setPair(time);
+				}
+			}
 		}
 	};
 })();
 Pairs.init();
+setInterval(Pairs.setCurrentPair, 1000);
